@@ -8,16 +8,44 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class JourneyActivity extends AppCompatActivity {
-
+    private boolean _isTracking;
+    private GPSView _gpsTracker;
+    private Button _btnTrack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        _gpsTracker = (GPSView)findViewById(R.id.gpsTracker);
+        _btnTrack = (Button) findViewById(R.id.buttonTrack);
+        _btnTrack.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                _gpsTracker.SwitchTracking();
+                _applyTrackState();
+            }
+        });
+
+        _applyTrackState();
+
+
     }
+
+    private void _applyTrackState()
+    {
+        if (_gpsTracker.IsTracking()) {
+            _btnTrack.setText("Stop tracking");
+        }
+        else {
+            _btnTrack.setText("Start Tracking");
+        }
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,4 +68,5 @@ public class JourneyActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

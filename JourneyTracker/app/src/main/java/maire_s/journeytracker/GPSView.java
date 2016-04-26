@@ -22,13 +22,24 @@ public class GPSView extends View {
 
     private float _avgSpeed;
     private float _currentSpeed;
+    private boolean _isTracking;
 
     public GPSView(Context context, AttributeSet attrs) {
         super(context, attrs);
         _maxSpeedDisplay = 60.0f;
         _speedDisplaySteps = 10.0f;
+        _isTracking = false;
     }
 
+
+    public void SwitchTracking()
+    {
+        _isTracking = !_isTracking;
+    }
+    public boolean IsTracking()
+    {
+        return _isTracking;
+    }
     @Override
     public void onDraw(Canvas canvas)
     {
